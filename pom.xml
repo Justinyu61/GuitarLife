@@ -10,56 +10,147 @@
   </properties>
   
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+<!--1)spring的核心依賴 -->
+<!--spring核心依賴-->    
 	<dependency>
 	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-webmvc</artifactId>
+	    <artifactId>spring-core</artifactId>
 	    <version>5.3.8</version>
 	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+<!--spring ioc依賴 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-beans</artifactId>
+	    <version>5.3.8</version>
+	</dependency>
+<!--spring 擴展依賴 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>5.3.8</version>
+	</dependency>
+<!--2)spring dao層依賴-->	
+<!-- spring jdbc -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>5.3.8</version>
+	</dependency>
+<!-- spring事務 -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>5.3.8</version>
+	</dependency>
+<!--3)spring web相關依賴-->
 	<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-web</artifactId>
 	    <version>5.3.8</version>
 	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>5.3.8</version>
+	</dependency>
+<!--4) spring test相关依赖 -->					
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>5.3.8</version>
+	    <scope>test</scope>
+	</dependency>	
 	
-	 <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+<!-- 單元測試類 -->	
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.13.2</version>
+	    <scope>test</scope>
+	</dependency>
+<!-- logger相關依賴 -->
+<!--slf4j規範接口 -->	
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>2.0.0-alpha2</version>
+	</dependency>
+<!-- 資料庫相關依賴 -->		
+<!-- mysql 驅動包 -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.25</version>
+	</dependency>
+<!-- c3p0 連線池 -->
+	<dependency>
+	    <groupId>com.mchange</groupId>
+	    <artifactId>c3p0</artifactId>
+	    <version>0.9.5.5</version>
+	</dependency>
+<!-- pool -->
+	<dependency>
+	    <groupId>commons-pool</groupId>
+	    <artifactId>commons-pool</artifactId>
+	    <version>1.6</version>
+	</dependency>
+<!-- 緩存的相關依賴 -->	
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-redis</artifactId>
+	    <version>2.5.2</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>3.6.1</version>
+	</dependency>
+
+
 	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>javax.servlet-api</artifactId>
 	    <version>4.0.1</version>
 	    <scope>provided</scope>
-	</dependency>
-	
+	</dependency>	
 	<!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
 	<dependency>
 	    <groupId>javax.servlet.jsp</groupId>
 	    <artifactId>javax.servlet.jsp-api</artifactId>
 	    <version>2.3.3</version>
 	    <scope>provided</scope>
-	</dependency>
-	
-   <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+	</dependency>	
+   <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->   
 	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>jstl</artifactId>
 	    <version>1.2</version>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+	</dependency>	
+	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->	
 	<dependency>
 	    <groupId>org.apache.tomcat</groupId>
 	    <artifactId>tomcat-catalina</artifactId>
 	    <version>10.1.0-M1</version>
 	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+	<!-- aop面向切面 -->
 	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.25</version>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjweaver</artifactId>
+	    <version>1.9.7</version>
 	</dependency>
+	
+	
+	
+	
+	
+	<!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+	
+	
+	
+	
+	
 	
 	
   </dependencies>

@@ -102,11 +102,6 @@ width: 40%;
 </style>
 </head>
 <body>
-
-
-
- 
-
 <!--  <hr> -->
 
   <article>
@@ -146,7 +141,7 @@ width: 40%;
     </div>
     
     <div class="register">
-    <form class='memberForm' method="POST" action='register.do'>
+    <form class='memberForm' method="POST" action='register.start'>
     <p style='color=red'>
     <% List<String> errorMsgs=(List<String>)request.getAttribute("errors");
     out.print(errorMsgs!=null?errorMsgs:"");%>

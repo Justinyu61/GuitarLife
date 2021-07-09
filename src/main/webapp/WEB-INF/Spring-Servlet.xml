@@ -18,20 +18,43 @@
     
     <!-- 不攔截css -->
     <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
-    <!-- 這有問題,還不知道怎麼寫 -->
-    <mvc:resources location="/subviews/" mapping="/subviews/**"></mvc:resources>
-  
+      
     <!--掃描Controller,並將其生命週期納入Spring管理-->        
     <context:component-scan base-package="com.gl.spring"/>
     
     <!-- InternalResourceViewResolver** -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+      <property name="viewClass" value="com.gl.spring.view.JstlView"/> 
       <!-- prefix ： 是指訪問頁面的前路徑 -->
       <property name="prefix" value="/WEB-INF/views/" />
       <!-- suffix ： 是指訪問頁面的後檔名,常見的有:html,JSP,php.txt.mp3 -->
       <property name="suffix" value=".jsp" />
     </bean>
     
+    <!-- JDBC -->
+      <!--  <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/GuitarLife?serverTimezone=CST"/>
+		<property name="username" value="root"/>
+		<property name="password" value="ji3cl3gj94"/>
+    </bean>-->
+ 
+    
+	
+	<!-- c3p0 -->
+	<!--<context:property-placeholder location="RDBconnection"/>
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+	    <property name="jdbcUrl" value="${jdbc.url}"></property> 
+	    <property name="user" value="${jdbc.user}"></property> 
+	    <property name="password" value="${jdbc.password}"></property>
+	</bean>-->
+	<!--  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> 				
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean class="com.gl.spring.DAO">
+		<property ref="jdbcTemplate" name="jdbcTemplate"/>
+	</bean>-->
     <!-- Spring-Servlet.xml,命名 -->
 
 </beans>

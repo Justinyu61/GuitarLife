@@ -5,11 +5,9 @@ import java.sql.SQLException;
 
 import com.gl.spring.exception.DLException;
 
-
-
 class RDBConnection {
 	private static final String driver = "com.mysql.cj.jdbc.Driver";
-	private static final String url = "jdbc:mysql://localhost:3306/GuitarLife?serverTimezone=CST";
+	private static final String url = "jdbc:mysql://localhost:3306/dl";
 	private static final String user = "root";
 	private static final String password = "ji3cl3gj94";
 	
@@ -21,7 +19,7 @@ class RDBConnection {
 	
 	try {
 		Class.forName(driver);//1.載入Driver
-		
+
 		try{
 			Connection connection= DriverManager.getConnection(url,user,password);//2.建立連線
 			return connection;	

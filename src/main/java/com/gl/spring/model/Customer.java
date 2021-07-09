@@ -2,10 +2,13 @@ package com.gl.spring.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.gl.spring.exception.*;
+import com.gl.spring.exception.DLDataInvalidateException;
+
+
 
 @Component
  public class Customer {
@@ -21,6 +24,8 @@ import com.gl.spring.exception.*;
 	// 若沒輸入,使用者在畫面上會看到NULL,會導致頁面當掉//=""代表空字串//=" "代表空白格一字串
 	private String address = "";
 	private boolean subscribed = true;// 是否訂閱電子報//true偷偷幫顧客訂閱
+	
+	
 
 	
 

@@ -72,7 +72,8 @@ vertical-align: middle;
 </head>
 
 <body> 
-  
+	
+
  <div class="home-contaner wrapper">
  
  <div class="top-img">  
