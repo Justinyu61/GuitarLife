@@ -24,12 +24,14 @@
     
     <!-- InternalResourceViewResolver** -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
-      <property name="viewClass" value="com.gl.spring.view.JstlView"/> 
+      <!--  <property name="viewClass" value="com.gl.spring.view.JstlView"/> -->
       <!-- prefix ： 是指訪問頁面的前路徑 -->
       <property name="prefix" value="/WEB-INF/views/" />
       <!-- suffix ： 是指訪問頁面的後檔名,常見的有:html,JSP,php.txt.mp3 -->
       <property name="suffix" value=".jsp" />
     </bean>
+    
+ 
     
     <!-- JDBC -->
       <!--  <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">

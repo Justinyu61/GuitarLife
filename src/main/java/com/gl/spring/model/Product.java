@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.gl.spring.exception.DLDataInvalidateException;
 
 
-
+@Component
 public class Product {
 
 	private int id;//Pkey,required,alto-increment

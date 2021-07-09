@@ -1,6 +1,8 @@
 package com.gl.spring.model;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class Color {
 	
 

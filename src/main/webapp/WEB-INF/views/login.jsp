@@ -102,6 +102,11 @@ width: 40%;
 </style>
 </head>
 <body>
+<header>
+		<jsp:include page="header.jsp" >
+		<jsp:param value="會員登入" name="subtitle"/>
+		</jsp:include>
+		</header>
 <!--  <hr> -->
 
   <article>
