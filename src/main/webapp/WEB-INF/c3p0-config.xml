@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c3p0-config>
+  <default-config>
+     <!-- MySQL連線參數 -->
+      <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+	 <property name="url" value="jdbc:mysql://localhost:3306/GuitarLife"/>
+	 <property name="user" value="root"/>
+	 <property name="password" value="ji3cl3gj94"/>
+	 <!-- 配置資料庫連線池的初始數據、最小連接數、獲取連接數、最大連接數、最大空閒時間... -->
+	  <property name="initialPoolSize">10</property>
+     <property name="minPoolSize">10</property>
+     <property name="acquireIncrement">5</property>
+     <property name="maxPoolSize">100</property>
+     <property name="maxIdleTime">30</property>
+  </default-config>
+</c3p0-config> 

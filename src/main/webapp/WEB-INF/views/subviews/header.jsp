@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="com.gl.spring.Service.ProductService"%>
+<%@page import="com.gl.spring.service.ProductService"%>
 <%@page import="com.gl.spring.model.*"%>
 <%@ page pageEncoding="UTF-8"%>
 <head>
@@ -15,7 +15,7 @@
 %>
 	
 <script type="text/javascript">
-
+<%--
 $(document).ready(function(){
 	$("#cartbtn").hover(function(){
 		$.ajax({
@@ -90,6 +90,7 @@ $(document).ready(init);
 			}
 		});
 	}		
+	--%>
 </script>
 
 <style>
@@ -282,7 +283,7 @@ header li.dropdown {
 	<ul>
 		
 			<li>
-			<a href='<%=request.getContextPath()%>/index.jsp'>HOME</a>
+			<a href='<%=request.getContextPath()%>/index'>HOME</a>
 			</li>
 			<li><a href="#news">NEWS</a></li>
 			<li class="dropdown">
@@ -312,7 +313,7 @@ header li.dropdown {
 		<ul class="customer-con">
 
 			<li >
-			<%
+			<%--
  ProductService service = new ProductService();
  List<Product>list = null;
  if(search!=null && type !=null){
@@ -323,7 +324,7 @@ header li.dropdown {
 	 list = service.getAllProducts();
  }
  List<String> typelist = service.getAllDistinctType();
-%>
+--%>
 
 			<input type="search" name="search" placeholder="Search...">
 			 <a type="submit"> 

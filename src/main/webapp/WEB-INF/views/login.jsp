@@ -102,21 +102,15 @@ width: 40%;
 </style>
 </head>
 <body>
-<header>
-		<jsp:include page="header.jsp" >
-		<jsp:param value="會員登入" name="subtitle"/>
-		</jsp:include>
-		</header>
+
+
 <!--  <hr> -->
 
   <article>
   
   <div class="login_register">
   <div class="login">
-  <%
-       String  errMsg=(String)request.getAttribute("error");
-      
-      %>
+  <% String  errMsg=(String)request.getAttribute("error"); %>
     <form class='memberForm' method="POST" action='login.start'>
       <p style='color:red'>
          <%= errMsg!=null?errMsg:"" %>
@@ -213,6 +207,6 @@ width: 40%;
     </div>
     </div>
   </article>
-
+   
 </body>
 </html>
