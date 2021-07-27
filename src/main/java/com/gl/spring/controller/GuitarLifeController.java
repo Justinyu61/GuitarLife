@@ -22,65 +22,63 @@ import com.gl.spring.service.GuitarLifeService;
 import com.gl.spring.service.GuitarLifeService.LoginStatus;
 import com.gl.spring.service.GuitarLifeService.RegisterStatus;
 
+
+
+
 @Controller
 public class GuitarLifeController {
-
+	
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-
+	
 	@Autowired
 	private GuitarLifeService service;
-
 	
-	@GetMapping("/login")
-	public String loginPag(HttpServletRequest request, HttpServletResponse response) {
-		logger.log(Level.INFO, "載入登入畫面");
-		return "login";
+	@GetMapping
+	public String loginPage(HttpServletRequest request,HttpServletResponse response) {
+		//logging.log(Level.INFO,"載入登入畫面");
+		return"login";
 	}
-
-
-	@PostMapping("/login")
+	
+	@PostMapping
 	public String loginStart(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
-
+		
 		List<String> errMsg = new ArrayList<String>();
-		if (id == null || id.length() == 0) {
-			errMsg.add("必須輸入ID,");
+		if(id == null || id.length() ==0) {//如果ID不適null或ID是空的話
+			errMsg.add("必須輸入帳號");
 		}
-		if (pwd == null || pwd.length() == 0) {
-			errMsg.add("必須輸入密碼,");
+		if(pwd == null || pwd.length() == 0) {//如果PWD不適null或ID是空的話
+			errMsg.add("必須輸入密碼");
 		}
-		if (!errMsg.isEmpty()) {
+		if(!errMsg.isEmpty()) {//如果任何錯誤訊息不是空的(0)就代表有誤並回login
 			request.setAttribute("errMsg", errMsg);
 			return "login";
 		}
-		try {
-			LoginStatus lostatus = service.login(id, pwd);
-			if (lostatus == LoginStatus.SUCCESS) {
-				Customer member = service.getCustomer(id);
+		try {LoginStatus loginstat = service.login(id, pwd);//帶入login()此方法
+			//寫入判斷
+			if(loginstat == LoginStatus.SUCCESS) {//如果登入狀態為成功則帶入此Customer
+				Customer member = service.getCustomer(id);//將member指定為service的getCustomer(id)
 				
-				HttpSession session = request.getSession();				
-				session.setAttribute("member", member);
+				HttpSession session = request.getSession();//取得session連線
+				session.setAttribute("member", member);//取得連線後將member帶到網頁
 				return "redirect:/index";
-			} else {
-				if (lostatus == LoginStatus.ACCOUNT_NOT_ACTIVE) {
-					errMsg.add("帳號未啟用");
+			}else {//如果沒找到此member則跑下面的判斷
+				if(loginstat == LoginStatus.ACCOUNT_NOT_ACTIVE) {
+					errMsg.add("帳尚未啟用");
 				}
-				if (lostatus == LoginStatus.ACCOUNT_NOT_FOUND || lostatus == LoginStatus.WRONG_PASSWORD) {
+				if(loginstat == LoginStatus.ACCOUNT_NOT_FOUND || loginstat == LoginStatus.WRONG_PASSWORD) {
 					errMsg.add("帳號或密碼錯誤");
 				}
 				request.setAttribute("errMsg", errMsg);
 				return "login";
 			}
-		} catch (Exception e) {
+		}catch (Exception e){//如果連線未成功則拋出錯誤
 			logger.log(Level.SEVERE, e.getMessage(), e);
-			request.setAttribute("errMsg", Arrays.asList("系統錯誤，請稍後再試"));
+			request.setAttribute("errMsg", Arrays.asList("系統錯誤,請稍後在試"));
 			return "login";
 		}
-
 	}
-
-	
 	@GetMapping("/register")
 	public String register(HttpServletRequest request, HttpServletResponse response) {
 		logger.log(Level.INFO, "載入註冊畫面");
@@ -107,8 +105,6 @@ public class GuitarLifeController {
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
 		String subscribed = request.getParameter("subscribed");
-//		String captcha = request.getParameter("captcha");
-
 		List<String> errorMsgs = new ArrayList<>();
 		// 檢查必要欄位
 		if (id == null || id.length() == 0) {
@@ -128,20 +124,13 @@ public class GuitarLifeController {
 		}
 		if (birthday == null || birthday.length() == 0) {
 			errorMsgs.add("必須輸入生日");
-//         }
-//        if(captcha==null || captcha.length()==0){
-//          errorMsgs.add("必須輸入驗證碼");
-		}
-//		if (errorMsgs.size() != 0){//size是int型別,但是在if()是布林型別所以要用 == 0 或 != 0做判斷裡面有沒有東西(或用.isEmpty())
-			
+		}	
 		if(!errorMsgs.isEmpty()) {
 			request.setAttribute("errors", errorMsgs);
 			return "redirect:/login";
 		}
-		// 2.若無誤,呼叫商業邏輯	
-		try {
-			
-			RegisterStatus resatuts = service.register(id, email, pwd1, pwd2, name, gender, birthday, phone, address, subscribed);			
+			try {			
+			RegisterStatus resatuts = service.rsgister(id, email, pwd1, pwd2, name, gender, birthday, phone, address, subscribed);			
 			
 			if(resatuts == RegisterStatus.SUCCESS) {
 				
@@ -179,8 +168,6 @@ public class GuitarLifeController {
 			
 		return "index";
 	}
-
-	
 	@GetMapping("/index")
 	public String indexPage(HttpServletRequest request) {
 		logger.log(Level.INFO, "載入首頁畫面");

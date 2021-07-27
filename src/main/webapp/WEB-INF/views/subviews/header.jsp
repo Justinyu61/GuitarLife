@@ -13,7 +13,7 @@
    String search = request.getParameter("search");
    String type = request.getParameter("type");
 %>
-	
+
 <script type="text/javascript">
 <%--
 $(document).ready(function(){
@@ -98,14 +98,15 @@ $(document).ready(init);
 	display: flex;
 	justify-content: space-around;
 }
-.customer-con{
-	background-color: #aaa097; 
-  float: right;
-	width: 32%;
-	 margin: 0;
-    padding: 0;
 
+.customer-con {
+	background-color: #aaa097;
+	float: right;
+	width: 32%;
+	margin: 0;
+	padding: 0;
 }
+
 .wrapper {
 	max-width: 90%;
 	margin: 0 auto;
@@ -123,24 +124,21 @@ $(document).ready(init);
 
 /* navbar css star */
 header ul {
- 	width: 30%;
- 	
-   
-    margin: 0;
-    padding: 0;
+	width: 30%;
+	margin: 0;
+	padding: 0;
 }
 
 .navbar {
 	text-align: center;
-    max-width: 100%;
-    list-style-type: none;
+	max-width: 100%;
+	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 	background-color: #aaa097;
-	width: 100%;	
-	display: flex; 
-
+	width: 100%;
+	display: flex;
 }
 
 header li {
@@ -207,7 +205,6 @@ header li.dropdown {
 	display: block;
 }
 
-	
 #cart_tab {
 	margin: 0px;
 	font-weight: bold;
@@ -277,42 +274,35 @@ header li.dropdown {
 
 <!-- navbar -->
 
-<div class="navbar" >
-        <div class="hold1" style="width: 30%;"></div>
-		
-	<ul>
-		
-			<li>
-			<a href='<%=request.getContextPath()%>/index'>HOME</a>
-			</li>
-			<li><a href="#news">NEWS</a></li>
-			<li class="dropdown">
-			<a href="javascript:void(0)" class="dropbtn">SHOP</a>
-				<div class="dropdown-content">
-					<a href="<%=request.getContextPath()%>/product_brand.jsp">吉他</a>
-					<div Class="dropdown-first">
-						<!-- 			<a href="#">TAYLOR</a>  -->
-						<!-- 			<a href="#">MARTIN</a>  -->
-						<!-- 			<a href="#">FAITH</a> -->
-					</div>
-					<a href="<%=request.getContextPath()%>/product_brand2.jsp">配件</a> 
-					<a href="#">其他</a>
-				</div>
-		
-			</li>
-			<li class="dropdown">
-			<a href="javascript:void(0)" class="dropbtn">精選文章</a>
-				<div class="dropdown-content">
-					<a href="<%=request.getContextPath()%>/taylor_brandstory.jsp">Taylor美國木吉他</a> 
-					<a	href="<%=request.getContextPath()%>/martin_brandstory.jsp">Martin美國百年吉他</a> 
-					<a	href="<%=request.getContextPath()%>/faith_brandstory.jsp">Faith英國最佳原聲吉他</a>
-				</div>
-			</li>
-	</ul>
-			<div class="hold2" style="margin-right: 7%;; display: block;"></div>
-		<ul class="customer-con">
+<div class="navbar">
+	<div class="hold1" style="width: 30%;"></div>
 
-			<li >
+	<ul>
+
+		<li><a href='<%=request.getContextPath()%>/index'>HOME</a></li>
+		<li><a href="#news">NEWS</a></li>
+		<li class="dropdown"><a href="javascript:void(0)" class="dropbtn">SHOP</a>
+			<div class="dropdown-content">
+				<a href="<%=request.getContextPath()%>/product_brand.jsp">吉他</a>
+				<div Class="dropdown-first">
+					<!-- 			<a href="#">TAYLOR</a>  -->
+					<!-- 			<a href="#">MARTIN</a>  -->
+					<!-- 			<a href="#">FAITH</a> -->
+				</div>
+				<a href="<%=request.getContextPath()%>/product_brand2.jsp">配件</a> <a
+					href="#">其他</a>
+			</div></li>
+		<li class="dropdown"><a href="javascript:void(0)" class="dropbtn">精選文章</a>
+			<div class="dropdown-content">
+				<a href="<%=request.getContextPath()%>/taylor_brandstory.jsp">Taylor美國木吉他</a>
+				<a href="<%=request.getContextPath()%>/martin_brandstory.jsp">Martin美國百年吉他</a>
+				<a href="<%=request.getContextPath()%>/faith_brandstory.jsp">Faith英國最佳原聲吉他</a>
+			</div></li>
+	</ul>
+	<div class="hold2" style="margin-right: 7%;; display: block;"></div>
+	<ul class="customer-con">
+
+		<li>
 			<%--
  ProductService service = new ProductService();
  List<Product>list = null;
@@ -324,36 +314,35 @@ header li.dropdown {
 	 list = service.getAllProducts();
  }
  List<String> typelist = service.getAllDistinctType();
---%>
-
-			<input type="search" name="search" placeholder="Search...">
-			 <a type="submit"> 
-			<i type="submit" class='fas fa-search'></i>
-			</a>	
-			</li>
-				<li id="cartbtn">
-					<a href='<%=request.getContextPath()%>/member/shopping_cart.jsp'>
-						<i class='fas fa-shopping-cart'></i> <jsp:include page="/small_cart.jsp"/></a>					
-					<div id="cart_tab" class="tab_content" style="position: absolute; right: 190px; display: none; z-index: 8;">
-						<div id="cart_item" class="cartSub">
-							<jsp:include page="/cart_ajax.jsp" />
-						</div>
-					</div>
-				</li>
-			
+--%> <input type="search" name="search" placeholder="Search...">
+			<a type="submit"> <i type="submit" class='fas fa-search'></i>
+		</a>
+		</li>
+		<li id="cartbtn"><a
+			href='<%=request.getContextPath()%>/member/shopping_cart.jsp'> <i
+				class='fas fa-shopping-cart'></i> <jsp:include
+					page="/small_cart.jsp" /></a>
+			<div id="cart_tab" class="tab_content"
+				style="position: absolute; right: 190px; display: none; z-index: 8;">
+				<div id="cart_item" class="cartSub">
+					<jsp:include page="/cart_ajax.jsp" />
+				</div>
+			</div></li>
 
 
 
-			<li >
-				<%
+
+		<li>
+			<%
 					if (member == null) {
-				%> <a href='<%=request.getContextPath()%>/login.jsp'><i class='fas fa-user-alt'></i></a> 
-				<% } else {%>
-                <a href='<%=request.getContextPath()%>/member/update.jsp'><%=member != null ? (member instanceof VIP ? "VIP" : "") + member.getName() : ""%></a>
-				<a href="<%=request.getContextPath()%>/logout.do"><i class="fas fa-user-alt-slash"></i></a> <% } %>
-			</li>
-		</ul>
-	
+				%> <a href='<%=request.getContextPath()%>/login.jsp'><i
+				class='fas fa-user-alt'></i></a> <% } else {%> <a
+			href='<%=request.getContextPath()%>/member/update.jsp'><%=member != null ? (member instanceof VIP ? "VIP" : "") + member.getName() : ""%></a>
+			<a href="<%=request.getContextPath()%>/logout.do"><i
+				class="fas fa-user-alt-slash"></i></a> <% } %>
+		</li>
+	</ul>
+
 </div>
 
 

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +19,9 @@ import com.gl.spring.entity.Product;
 
 
 @Component
-public class ProductDaoDB  {
+public class ProductDaoDB implements ProductDAO{
+	
+	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -55,6 +58,8 @@ public class ProductDaoDB  {
 			return p;
 		}
 	};
+	
+	@Override
 	public  List<Product> selectAllProducts(){
 		List<Product> list = new ArrayList<Product>();		
 		return jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);

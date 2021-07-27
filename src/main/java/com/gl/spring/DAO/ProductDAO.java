@@ -12,15 +12,13 @@ import com.gl.spring.entity.Product;
 
 
 @Component
-public class ProductDAO {
+public interface ProductDAO {
 	
-	
-	private ProductDAO dao;
-
-	public List<Product> selectAllProducts() {
-		List<Product> list = dao.selectAllProducts();
-		return list;
-	}
+	public List<Product> selectAllProducts(); 
+//	{
+//	List<Product> list = dao.selectAllProducts();
+//	return list;
+//	}
 //	public List<Product> selectProductsByBrandAndType(String brand, String type){
 //		List<Product> list = dao.selectProductsByBrandAndType(brand, type);
 //		return list;

@@ -72,11 +72,11 @@ vertical-align: middle;
 </head>
 
 <body> 
-    <!--  <header>
+    <!---->  <header>
 		<jsp:include page="/subviews/header.jsp" >
 		<jsp:param value="會員登入" name="subtitle"/>
 		</jsp:include>
-	</header>-->
+	</header>
 	
 
  <div class="home-contaner wrapper">
