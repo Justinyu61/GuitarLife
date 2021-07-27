@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gl.spring.entity.Customer;
+import com.gl.spring.entity.Product;
 import com.gl.spring.service.GuitarLifeService;
 import com.gl.spring.service.GuitarLifeService.LoginStatus;
 import com.gl.spring.service.GuitarLifeService.RegisterStatus;
@@ -33,13 +34,15 @@ public class GuitarLifeController {
 	@Autowired
 	private GuitarLifeService service;
 	
-	@GetMapping
+	
+	
+	@GetMapping("/login")
 	public String loginPage(HttpServletRequest request,HttpServletResponse response) {
 		//logging.log(Level.INFO,"載入登入畫面");
 		return"login";
 	}
 	
-	@PostMapping
+	@PostMapping("/login")
 	public String loginStart(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
@@ -178,6 +181,23 @@ public class GuitarLifeController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "login";
+	}
+	
+	@GetMapping("/header")
+	public String header(HttpServletRequest request,HttpServletResponse response) {
+		logger.log(Level.INFO, "載入Header");
+		return "header";
+	}
+	
+	@GetMapping("/products")
+	public String products(HttpServletRequest request) {		
+		List<Product> p = service.getProducts();
+		
+		for(Product product : p) {
+			logger.log(Level.INFO,"產品明細" + product.getId()+ "," + product.getName()+ "," + product.getBrand()+ "," + product.getUnitPrice()+ "," + product.getPhotoUrl());
+		}	
+		logger.log(Level.INFO, "載入產品頁面");
+		return "products";
 	}
 
 

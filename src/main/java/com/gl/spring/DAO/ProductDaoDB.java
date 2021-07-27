@@ -61,8 +61,9 @@ public class ProductDaoDB implements ProductDAO{
 	
 	@Override
 	public  List<Product> selectAllProducts(){
-		List<Product> list = new ArrayList<Product>();		
-		return jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);
+		List<Product> list = jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);		
+		return list;
+		
 	}
 
 

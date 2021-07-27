@@ -1,30 +1,59 @@
 package com.gl.spring.service;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.gl.spring.DAO.CustomerDAO;
+import com.gl.spring.DAO.ProductDAO;
 import com.gl.spring.entity.Customer;
+import com.gl.spring.entity.Product;
 
+@Service
 public class GuitarLifeService {
 	
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	
 	@Autowired
-	private CustomerDAO dao;
+	private CustomerDAO customerDao;
+	
+	@Autowired
+	private ProductDAO productDao;
 	
 	//使用getCustom取得Customer裡的customer物件物件
 	public Customer getCustomer(String id) {
-		Optional<Customer> c = dao.selectCustomersById(id);//c物件連線DAO
+		Optional<Customer> c = customerDao.selectCustomersById(id);//c物件連線DAO
 		Customer customer = new Customer();//建立customer物件
 		if(c.isPresent()) {//如果c這個物件有取得到Customer資料
 			customer = c.get();//將此物件取得的資料放進customer裡
 		}
 		return customer;
+	}
+	
+	public List<Product> getProducts(){
+		List<Product> productList = productDao.selectAllProducts();				 
+		Product p1 = new Product();
+		
+		if(!productList.isEmpty()) {
+			
+		p1.getId();
+		p1.getName();
+		p1.getBrand();
+		p1.getUnitPrice();
+		p1.getStock();
+		p1.getDescription();
+		p1.getPhotoUrl();
+		
+		productList.add(p1);
+		}
+		
+		return productList;
 	}
 	
 	//寫登入的檢查狀態
@@ -47,7 +76,7 @@ public class GuitarLifeService {
 	
 	//寫入判斷
 	public LoginStatus login(String id,String pwd) {
-		Optional<Customer> c = dao.selectCustomersById(id);
+		Optional<Customer> c = customerDao.selectCustomersById(id);
 		
 		LoginStatus loginstat = null;
 		if(c.isPresent()) {//如果c這個物件有取得到Customer資料
@@ -116,7 +145,7 @@ public class GuitarLifeService {
 			inc.setAddress(address);
 			inc.setSubscribed(subscribed != null);
 
-			int c = dao.insertCustomer(inc);
+			int c = customerDao.insertCustomer(inc);
 			if(c == 1) {
 				regstat = RegisterStatus.SUCCESS;
 			}else {
@@ -127,5 +156,8 @@ public class GuitarLifeService {
 
 		return regstat;
 	}
+
+	
+	
 			
 }

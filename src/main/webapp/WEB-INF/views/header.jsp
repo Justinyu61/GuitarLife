@@ -1,7 +1,6 @@
 <%@page import="java.util.List"%>
-<%@page import="com.gl.spring.service.ProductService"%>
-<%@page import="com.gl.spring.model.*"%>
-<%@ page pageEncoding="UTF-8"%>
+<%@page import="com.gl.spring.entity.Customer"%>
+<%@page pageEncoding="UTF-8"%>
 <head>
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
@@ -10,8 +9,8 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 <%
-   String search = request.getParameter("search");
-   String type = request.getParameter("type");
+	String search = request.getParameter("search");
+String type = request.getParameter("type");
 %>
 
 <script type="text/javascript">
@@ -318,8 +317,8 @@ header li.dropdown {
 			<a type="submit"> <i type="submit" class='fas fa-search'></i>
 		</a>
 		</li>
-		<li id="cartbtn"><a
-			href='<%=request.getContextPath()%>/member/shopping_cart.jsp'> <i
+		<%-- 	<li id="cartbtn"><a
+			<href='<%=request.getContextPath()%>/member/shopping_cart.jsp'> <i
 				class='fas fa-shopping-cart'></i> <jsp:include
 					page="/small_cart.jsp" /></a>
 			<div id="cart_tab" class="tab_content"
@@ -327,20 +326,9 @@ header li.dropdown {
 				<div id="cart_item" class="cartSub">
 					<jsp:include page="/cart_ajax.jsp" />
 				</div>
-			</div></li>
-
-
-
-
-		<li>
-			<%
-					if (member == null) {
-				%> <a href='<%=request.getContextPath()%>/login.jsp'><i
-				class='fas fa-user-alt'></i></a> <% } else {%> <a
-			href='<%=request.getContextPath()%>/member/update.jsp'><%=member != null ? (member instanceof VIP ? "VIP" : "") + member.getName() : ""%></a>
-			<a href="<%=request.getContextPath()%>/logout.do"><i
-				class="fas fa-user-alt-slash"></i></a> <% } %>
+			</div>--%>
 		</li>
+
 	</ul>
 
 </div>
