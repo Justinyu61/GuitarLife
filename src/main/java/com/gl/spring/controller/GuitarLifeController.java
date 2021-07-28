@@ -189,6 +189,17 @@ public class GuitarLifeController {
 		return "header";
 	}
 	
+//	@GetMapping("/products")
+//	public String products(HttpServletRequest request) {				
+//		String id = request.getParameter("id");		
+//		List<Product> p = service.getProducts(id);
+//		
+//		for(Product product : p) {
+//			logger.log(Level.INFO,"產品明細" + product.getId()+ "," + product.getName()+ "," + product.getBrand()+ "," + product.getUnitPrice()+ "," + product.getPhotoUrl());
+//		}	
+//		logger.log(Level.INFO, "載入產品頁面");
+//		return "products";
+//	}
 	@GetMapping("/products")
 	public String products(HttpServletRequest request) {		
 		List<Product> p = service.getProducts();

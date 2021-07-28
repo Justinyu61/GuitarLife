@@ -3,6 +3,7 @@ package com.gl.spring.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -32,8 +33,7 @@ public interface ProductDAO {//interface只是宣告名稱 不會有方法的
 //		List<Product> list = dao.selectProductsByBrand(brand);
 //		return list;
 //	}
-//	Product selectProductsById(String id) {		
-//		return p;
-//	}
+//	Optional<Product> selectProductsById(String id);		
+
 
 }

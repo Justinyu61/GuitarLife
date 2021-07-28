@@ -1,12 +1,11 @@
 package com.gl.spring.DAO;
 
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,14 @@ import org.springframework.stereotype.Component;
 
 import com.gl.spring.entity.Product;
 
-
-
 @Component
-public class ProductDaoDB implements ProductDAO{
-	
+public class ProductDaoDB implements ProductDAO {
+
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	final String SELECT_ALL_PRODUCTS = "SELECT id , name, brand,unit_price, "
 			+ "stock, description, photo_url,discount " + "FROM products";
 //	final  String SELECT_PRODUCTS_BY_BRAND_AND_TYPE = "SELECT id, name, brand, shelf_date, "
@@ -39,10 +36,9 @@ public class ProductDaoDB implements ProductDAO{
 //	final  String SELECT_PRODUCTS_BY_BRAND="SELECT id,name,brand,photo_url,discount,unit_price "	 
 //			+"FROM products "
 //			+"where brand like ?";
-//	final  String SELECT_PRODUCTS_BY_ID = "SELECT id, name, brand, unit_price, stock, description, photo_url,discount,shelf_date "
-//     		+ "FROM products "
-//     		+ "WHERE id = ?";
-	
+	final String SELECT_PRODUCTS_BY_ID = "SELECT id, name, brand, unit_price, stock, description, photo_url,discount,shelf_date "
+			+ "FROM products " + "WHERE id = ?";
+
 	private RowMapper<Product> ptMapper = new RowMapper<Product>() {
 		@Override
 		public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -54,17 +50,26 @@ public class ProductDaoDB implements ProductDAO{
 			p.setStock(rs.getInt("stock"));
 			p.setDescription(rs.getString("description"));
 			p.setPhotoUrl(rs.getString("photo_url"));
-						
+
 			return p;
 		}
 	};
-	
+
 	@Override
-	public  List<Product> selectAllProducts(){
-		List<Product> list = jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);		
+	public List<Product> selectAllProducts() {
+		List<Product> list = jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);
 		return list;
-		
+
 	}
 
+//	@Override
+//	public Optional<Product> selectProductsById(String id) {
+//		List<Product> list = jdbcTemplate.query(SELECT_PRODUCTS_BY_ID, ptMapper, id );
+//		if (list.isEmpty()) {
+//			return Optional.empty();
+//		} else {
+//			return Optional.of(list.get(0));
+//		}
+//	}
 
 }

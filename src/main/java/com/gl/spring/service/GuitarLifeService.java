@@ -36,6 +36,16 @@ public class GuitarLifeService {
 		return customer;
 	}
 	
+//	public Product getProducts(String id){
+//		Optional<Product> productList = productDao.selectProductsById(id);				 
+//		Product p1 = new Product();
+//		
+//		if(productList.isPresent()) {
+//		    p1 = productList.get();	
+//		}
+//		return p1;
+//	}
+	
 	public List<Product> getProducts(){
 		List<Product> productList = productDao.selectAllProducts();				 
 		Product p1 = new Product();
@@ -55,7 +65,7 @@ public class GuitarLifeService {
 		
 		return productList;
 	}
-	
+
 	//寫登入的檢查狀態
 	public enum LoginStatus{
 		SUCCESS("登入成功"),
