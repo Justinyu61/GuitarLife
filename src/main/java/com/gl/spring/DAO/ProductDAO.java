@@ -33,7 +33,7 @@ public interface ProductDAO {//interface只是宣告名稱 不會有方法的
 //		List<Product> list = dao.selectProductsByBrand(brand);
 //		return list;
 //	}
-//	Optional<Product> selectProductsById(String id);		
+	Optional<Product>selectProductsById(String id);		
 
 
 }

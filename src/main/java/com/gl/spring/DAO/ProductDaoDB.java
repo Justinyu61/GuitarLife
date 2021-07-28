@@ -50,6 +50,7 @@ public class ProductDaoDB implements ProductDAO {
 			p.setStock(rs.getInt("stock"));
 			p.setDescription(rs.getString("description"));
 			p.setPhotoUrl(rs.getString("photo_url"));
+			
 
 			return p;
 		}
@@ -57,19 +58,18 @@ public class ProductDaoDB implements ProductDAO {
 
 	@Override
 	public List<Product> selectAllProducts() {
-		List<Product> list = jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);
-		return list;
-
+		List<Product> list = jdbcTemplate.query(SELECT_ALL_PRODUCTS, ptMapper);	
+			return list;			
 	}
 
-//	@Override
-//	public Optional<Product> selectProductsById(String id) {
-//		List<Product> list = jdbcTemplate.query(SELECT_PRODUCTS_BY_ID, ptMapper, id );
-//		if (list.isEmpty()) {
-//			return Optional.empty();
-//		} else {
-//			return Optional.of(list.get(0));
-//		}
-//	}
+	@Override
+	public Optional<Product> selectProductsById(String id) {
+		List<Product> list = jdbcTemplate.query(SELECT_PRODUCTS_BY_ID,ptMapper,id);
+		if (list.isEmpty()) {
+			return Optional.empty();
+		} else {
+			return Optional.of(list.get(0));
+		}
+	}
 
 }

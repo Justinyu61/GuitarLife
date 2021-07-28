@@ -3,6 +3,7 @@ package com.gl.spring.controller;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -189,20 +190,10 @@ public class GuitarLifeController {
 		return "header";
 	}
 	
-//	@GetMapping("/products")
-//	public String products(HttpServletRequest request) {				
-//		String id = request.getParameter("id");		
-//		List<Product> p = service.getProducts(id);
-//		
-//		for(Product product : p) {
-//			logger.log(Level.INFO,"產品明細" + product.getId()+ "," + product.getName()+ "," + product.getBrand()+ "," + product.getUnitPrice()+ "," + product.getPhotoUrl());
-//		}	
-//		logger.log(Level.INFO, "載入產品頁面");
-//		return "products";
-//	}
 	@GetMapping("/products")
 	public String products(HttpServletRequest request) {		
 		List<Product> p = service.getProducts();
+		request.setAttribute("products", p);//要把一些資訊送到網頁頁面上
 		
 		for(Product product : p) {
 			logger.log(Level.INFO,"產品明細" + product.getId()+ "," + product.getName()+ "," + product.getBrand()+ "," + product.getUnitPrice()+ "," + product.getPhotoUrl());
@@ -210,6 +201,26 @@ public class GuitarLifeController {
 		logger.log(Level.INFO, "載入產品頁面");
 		return "products";
 	}
+	
+	@GetMapping("/productlist")
+	public String productId(HttpServletRequest request) {//改productid			
+		String id = request.getParameter("id");				
+		Product prodId = service.getProductId(id);
+		request.setAttribute("prodId", prodId);	
+		
+		if(id != null) {				
+			logger.log(Level.INFO,"產品細節 : " + prodId);
+			
+		}else{
+			logger.log(Level.INFO, "查無此產品");
+			return "products";
+		}
+			
+		logger.log(Level.INFO, "載入產品細節");
+		return "redirect:/productlist";
+		
+	}
+	
 
 
 }

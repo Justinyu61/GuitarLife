@@ -1,17 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="productcase">
 	<div class="productWhere">
 		<article style="overflow: hidden;">
 
 			<ul>
-				<li name="faith">
-					<a href="product_list.jsp?brand=Faith"> 
-						<img src="https://guitartogo-music.com/wp-content/uploads/%E7%B6%B2%E9%A0%81%E5%88%86%E9%A1%9E%E5%9C%96-%E7%90%B4%E9%A0%AD_faith-2-500x500.jpg">
+			<c:forEach items="${products}" var="prod">
+				<li name="${prod.id}">
+					<a href="productlist.jsp?id=${prod.id}"> 
+						<img src="${prod.photoUrl}">
 					</a>
-					<h2>FAITH 英國最佳原聲吉他</h2>
+					<h2>${prod.name}</h2>
+										
+					 <c:if test="${prod.stock == 0}">
+					 	<h2 style ="color: red;">已售完</h2>
+					 </c:if>
+					 
+					 <c:if test="${prod.stock >= 1}">
+					 	<h2>庫存:${prod.stock}</h2>
+					 </c:if>
+					
 				</li>
-							
+			</c:forEach>				
 			</ul>
 		</article>
 	</div>

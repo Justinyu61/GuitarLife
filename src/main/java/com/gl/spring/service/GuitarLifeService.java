@@ -35,37 +35,7 @@ public class GuitarLifeService {
 		}
 		return customer;
 	}
-	
-//	public Product getProducts(String id){
-//		Optional<Product> productList = productDao.selectProductsById(id);				 
-//		Product p1 = new Product();
-//		
-//		if(productList.isPresent()) {
-//		    p1 = productList.get();	
-//		}
-//		return p1;
-//	}
-	
-	public List<Product> getProducts(){
-		List<Product> productList = productDao.selectAllProducts();				 
-		Product p1 = new Product();
 		
-		if(!productList.isEmpty()) {
-			
-		p1.getId();
-		p1.getName();
-		p1.getBrand();
-		p1.getUnitPrice();
-		p1.getStock();
-		p1.getDescription();
-		p1.getPhotoUrl();
-		
-		productList.add(p1);
-		}
-		
-		return productList;
-	}
-
 	//寫登入的檢查狀態
 	public enum LoginStatus{
 		SUCCESS("登入成功"),
@@ -167,7 +137,36 @@ public class GuitarLifeService {
 		return regstat;
 	}
 
+	public List<Product> getProducts(){
+		List<Product> productList = productDao.selectAllProducts();				 
+//		Product p1 = new Product();//測試用
+		
+//		if(!productList.isEmpty()) {
+			
+//		p1.setId(123);
+//		p1.setName("aaa");
+//		p1.setBrand("bbb");
+//		p1.setUnitPrice(455);
+//		p1.setStock(56);
+//		p1.setDescription("");
+//		p1.setPhotoUrl("");
+//		p1.setType("yyy");
+//		
+//		productList.add(p1);
+//		}		
+		return productList;
+	}
 	
+	public Product getProductId(String id){
+		Optional<Product> productId = productDao.selectProductsById(id);
+		Product p1 = new Product();
+		
+		if(!productId.isEmpty()) {				
+			p1 = productId.get();			
+		}		
+		return p1;
+	}
 	
+
 			
 }
