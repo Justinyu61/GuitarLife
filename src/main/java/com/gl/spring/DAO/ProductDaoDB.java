@@ -33,9 +33,9 @@ public class ProductDaoDB implements ProductDAO {
 //	final  String SELECE_All_PRODUCTS_BY_BRAND = "SELECT name,brand,unit_price,stock "	 
 //			+"FROM products "
 //			+"where brand = ?";
-//	final  String SELECT_PRODUCTS_BY_BRAND="SELECT id,name,brand,photo_url,discount,unit_price "	 
-//			+"FROM products "
-//			+"where brand like ?";
+	final  String SELECT_PRODUCTS_BY_BRAND="SELECT id, name, brand, unit_price, stock, description, photo_url,discount,shelf_date "	 
+			+"FROM products "
+			+"where brand like ?";
 	final String SELECT_PRODUCTS_BY_ID = "SELECT id, name, brand, unit_price, stock, description, photo_url,discount,shelf_date "
 			+ "FROM products " + "WHERE id = ?";
 
@@ -70,6 +70,11 @@ public class ProductDaoDB implements ProductDAO {
 		} else {
 			return Optional.of(list.get(0));
 		}
+	}
+	
+	public List<Product> selectProductsByBrand(String brand){
+		List<Product> list = jdbcTemplate.query(SELECT_PRODUCTS_BY_BRAND, ptMapper,brand);
+		return list;
 	}
 
 }

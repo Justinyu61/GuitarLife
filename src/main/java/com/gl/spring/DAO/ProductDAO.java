@@ -13,10 +13,7 @@ import com.gl.spring.entity.Product;
 public interface ProductDAO {//interface只是宣告名稱 不會有方法的
 	
 	public List<Product> selectAllProducts(); 
-//	{
-//	List<Product> list = dao.selectAllProducts();
-//	return list;
-//	}
+
 //	public List<Product> selectProductsByBrandAndType(String brand, String type){
 //		List<Product> list = dao.selectProductsByBrandAndType(brand, type);
 //		return list;
@@ -29,10 +26,8 @@ public interface ProductDAO {//interface只是宣告名稱 不會有方法的
 //		List<String> list = dao.selectAllDistinctType();
 //		return list;
 //	}
-//	public List<Product> selectProductsByBrand(String brand){
-//		List<Product> list = dao.selectProductsByBrand(brand);
-//		return list;
-//	}
+	public List<Product> selectProductsByBrand(String brand);
+
 	Optional<Product>selectProductsById(String id);		
 
 

@@ -167,6 +167,12 @@ public class GuitarLifeService {
 		return p1;
 	}
 	
+	public List<Product> getProductsByBrand(String brand){
+		List<Product> productByBrand = productDao.selectProductsByBrand(brand);
+		
+		return productByBrand;
+	}
+	
 
 			
 }

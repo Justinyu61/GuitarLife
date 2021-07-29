@@ -1,6 +1,13 @@
 package com.gl.spring.entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gl.spring.exception.DLDataInvalidateException;
+
+
 
 public class Product {
 	private int id;
@@ -12,9 +19,9 @@ public class Product {
 	private double unitPrice;
 	private int stock;
 	private LocalDate shelfDate = LocalDate.now();
+	private List<Color> colorList= new ArrayList<>();
 
-	public Product() {
-	}
+	public Product() {}
 
 	public Product(int id, String name, double unitPrice, int stock) {
 		super();
@@ -56,9 +63,49 @@ public class Product {
 		return stock;
 	}
 
-	public LocalDate getShelfDate() {
-		return shelfDate;
+	public void getShelfDate(String dateString) {
+		if(shelfDate != null) {
+			try {
+				setShelfDate(LocalDate.parse(dateString));
+				return;
+			}catch(DateTimeParseException e) {
+				throw new DLDataInvalidateException("產品上架日期(" + dateString + ")格式不正確，須符合iso8601");
+			}
+		}
 	}
+	
+	public List<Color> getColorList(){
+		return new ArrayList<>(colorList);
+	}
+	
+	public Color findColor(String colorName,String size) {
+		Color color = null;
+		if((this.getColorList()==null || this.getColorList().size()==0)
+				&&(colorName!= null && colorName.length()>0)) {
+			throw new DLDataInvalidateException("無顏色清單的產品("+id+ "),不可以指派顏色"+colorName);
+		}else if((this.getColorList()!=null && this.getColorList().size()>0)
+				&&(colorName==null || colorName.length()==0)) {
+			throw new DLDataInvalidateException("有顏色清單的產品("+id+"),必須選擇顏色");
+		}else if((this.getColorList()!=null && this.getColorList().size()>0)
+			&&(colorName !=null && colorName.length()>0)) {
+			for(int i=0;i<colorList.size();i++) {
+				Color theColor = colorList.get(i);
+				if(theColor.getColorName().equals(colorName)) {
+					return theColor;
+				}				
+			}
+			throw new DLDataInvalidateException("有顏色清單,顏色選擇錯誤:"+colorName);
+		}else {
+			//檢查尺寸
+			if(size!=null && size.length()>0) 
+				throw new DLDataInvalidateException("沒有顏色清單的產品，不得指派尺寸:" + size);	
+		}				
+		return color;
+	}
+	
+	 public void addColor(Color color) {
+     	colorList.add(color);
+     }
 
 	public void setId(int id) {
 		this.id = id;

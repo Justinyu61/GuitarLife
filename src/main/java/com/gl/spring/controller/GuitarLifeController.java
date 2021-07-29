@@ -202,24 +202,35 @@ public class GuitarLifeController {
 		return "products";
 	}
 	
-	@GetMapping("/productlist")
-	public String productId(HttpServletRequest request) {//改productid			
+	@GetMapping("/productinfo")
+	public String product(HttpServletRequest request) {			
 		String id = request.getParameter("id");				
-		Product prodId = service.getProductId(id);
-		request.setAttribute("prodId", prodId);	
+		Product prod = service.getProductId(id);
+		request.setAttribute("prodInfo", prod);	
 		
-		if(id != null) {				
-			logger.log(Level.INFO,"產品細節 : " + prodId);
-			
+		if(prod != null) {				
+			logger.log(Level.INFO,"產品細節 : " + prod);
+			return "productinfo";
 		}else{
 			logger.log(Level.INFO, "查無此產品");
 			return "products";
-		}
-			
-		logger.log(Level.INFO, "載入產品細節");
-		return "redirect:/productlist";
-		
+		}				
 	}
+	
+	@GetMapping("/productbrand")
+	public String prodbrand(HttpServletRequest request) {
+		String brand = request.getParameter("brand");//取得從網頁上傳入的參數
+		//之後要做格式的判斷
+		List<Product> p = service.getProductsByBrand(brand);
+		//localhost:8080/GuitarLife/productbrand?brand=Taylor
+		request.setAttribute("products", p);
+		request.setAttribute("brand", brand);
+		//可以寫logger		
+		
+		return "products";
+	}
+	
+	
 	
 
 
