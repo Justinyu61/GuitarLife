@@ -1,16 +1,17 @@
 package com.gl.spring.DAO;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.gl.spring.entity.Order;
 
-public class OrderDAO {
+public interface OrderDAO {
 	 
-	Order selectOrderById(String orderId);
+	Optional<Order> selectOrderById(String orderId);
 	
-	public int insertOrder(Order order);
+	public void insertOrder(Order order);
 	
-	List<Order> selectOrderHistoryByMemberId(String memberId);
+	//List<Order> selectOrderHistoryByMemberId(String memberId);
 	
 	
 

@@ -8,7 +8,7 @@ public class OrderItem {
 	private int quantity;
 	private double price;
 	
-	private Product getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 	public Color getColor() {
