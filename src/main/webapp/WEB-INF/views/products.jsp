@@ -4,8 +4,11 @@
 <script type="text/javascript">
 function chooseBrand(){
 	alert("selected brand is" + document.getElementById("brand").value);
-	
-	document.location.href="productbrand?brand="+document.getElementById("brand").value;
+	if(document.getElementById("brand").value == "All"){
+	 document.location.href="products";
+	}else{	
+	 document.location.href="productbrand?brand="+document.getElementById("brand").value;
+	}
 }
 </script>
 </head>
@@ -13,7 +16,9 @@ function chooseBrand(){
 	<div class="productWhere">
 		<article style="overflow: hidden;">
 		  <select id="brand" onchange="chooseBrand()">
-		  
+		    
+		    <option value="All" <c:if test="${brand eq 'All'}">selected</c:if>>All</option>
+		    		  		  		  
 		    <option value="Faith" <c:if test="${brand eq 'Faith'}">selected</c:if>>Faith</option>
 		    
 		    <option value="Taylor" <c:if test="${brand eq 'Taylor'}">selected</c:if>>Taylor</option>

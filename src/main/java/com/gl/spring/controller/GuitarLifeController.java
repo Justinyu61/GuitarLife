@@ -225,7 +225,8 @@ public class GuitarLifeController {
 		//localhost:8080/GuitarLife/productbrand?brand=Taylor
 		request.setAttribute("products", p);
 		request.setAttribute("brand", brand);
-		//可以寫logger		
+		//可以寫logger	
+		
 		
 		return "products";
 	}

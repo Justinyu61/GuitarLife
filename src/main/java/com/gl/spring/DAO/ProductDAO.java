@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.gl.spring.entity.Product;
 
-
+@Component
 public interface ProductDAO {//interface只是宣告名稱 不會有方法的
 	
 	public List<Product> selectAllProducts(); 

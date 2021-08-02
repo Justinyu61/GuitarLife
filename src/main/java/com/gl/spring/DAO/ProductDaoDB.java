@@ -71,7 +71,7 @@ public class ProductDaoDB implements ProductDAO {
 			return Optional.of(list.get(0));
 		}
 	}
-	
+	@Override
 	public List<Product> selectProductsByBrand(String brand){
 		List<Product> list = jdbcTemplate.query(SELECT_PRODUCTS_BY_BRAND, ptMapper,brand);
 		return list;

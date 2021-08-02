@@ -33,8 +33,7 @@ public class CustomerDaoDB implements CustomerDAO{
 			+ "SET email=? password=? name=? gender=? birthday=? phone=? address=? subscribed=? discount=?"
 			+ "WHERE id=?"; 
 	
-	private RowMapper<Customer> crMapper = new RowMapper<Customer>() {
-		
+	private RowMapper<Customer> crMapper = new RowMapper<Customer>() {		
 		@Override
 		public Customer mapRow(ResultSet rs , int rowNum) throws SQLException{
 			Customer c = new Customer();
