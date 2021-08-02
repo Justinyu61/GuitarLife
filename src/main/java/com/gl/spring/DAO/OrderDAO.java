@@ -11,7 +11,7 @@ public interface OrderDAO {
 	 
 	Optional<Order> selectOrderById(String orderId);
 	
-	//public int insertOrder(Order order);
+	public void insertOrder(Order order);
 	
 	//List<Order> selectOrderHistoryByMemberId(String memberId);
 	

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.gl.spring.entity.Customer;
+import com.gl.spring.entity.Order;
 import com.gl.spring.entity.Product;
 import com.gl.spring.service.GuitarLifeService;
 import com.gl.spring.service.GuitarLifeService.LoginStatus;
@@ -225,12 +226,29 @@ public class GuitarLifeController {
 		//localhost:8080/GuitarLife/productbrand?brand=Taylor
 		request.setAttribute("products", p);
 		request.setAttribute("brand", brand);
-		//可以寫logger	
-		
-		
+		//可以寫logger					
 		return "products";
 	}
 	
+	@GetMapping("/shopping_cart")
+	public String shoppingCart(HttpServletRequest request) {
+				
+		return "shopping_cart";
+	}
+	
+	@GetMapping("/order")
+	public String order(HttpServletRequest request) {
+		String orderId = request.getParameter("orderId");	
+		Order o = service.getOrderById(orderId);
+		request.setAttribute("orderId", o);
+		
+		if(o != null) {
+			logger.log(Level.INFO, "訂單" + o);
+			return "order";
+		}
+		return "order";
+				
+	}
 	
 	
 

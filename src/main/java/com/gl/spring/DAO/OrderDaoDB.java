@@ -16,13 +16,16 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gl.spring.entity.Color;
 import com.gl.spring.entity.Customer;
 import com.gl.spring.entity.Order;
 import com.gl.spring.entity.OrderItem;
 import com.gl.spring.entity.Product;
-import com.mysql.cj.xdevapi.PreparableStatement;
+
+
+
 
 @Component
 public class OrderDaoDB implements OrderDAO {
@@ -50,73 +53,75 @@ public class OrderDaoDB implements OrderDAO {
 			+ "(orders_id, product_id, brand, color_name, size, quantity, price)" + "VALUE(?,?,?,?,?,?,?)";
 	final String UPDATE_PRODUCT_STOCK = "UPDATE products SET stock=stock-? " + "WHERE id=? AND stock>=?";
 
-//	@Override
-//	public int insertOrder(Order order) {
-//		//--------------------------------------------------------------------------------------------------------------------------		
-//		if (order == null)
-//			throw new IllegalArgumentException("建立訂單不得為null!");
-//
-//		for (OrderItem item : order.getOrderItemSet()) {
-//			if (item.getColor() == null) {
-//				jdbcTemplate.update(new PreparedStatementCreator() {
-//					@Override
-//					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//						PreparedStatement ps = connection.prepareStatement(UPDATE_PRODUCT_STOCK);
-//						ps.setInt(1, item.getQuantity());
-//						ps.setInt(2, item.getProduct().getId());
-//						ps.setInt(3, item.getQuantity());
-//
-//						return ps;
-//					}
-//				});
-//			}
-//		}
-//		//--------------------------------------------------------------------------------------------------------------------------
-//		KeyHolder keyHolder = new GeneratedKeyHolder();
-//		jdbcTemplate.update(new PreparedStatementCreator() {
-//			@Override
-//			public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
-//				PreparedStatement ps1 = conn.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
-//				ps1.setString(1, order.getMember().getId());
-//				ps1.setString(2, order.getCreatedDate().toString());
-//				ps1.setString(3, order.getCreatedTime().toString());
-//
-//				ps1.setString(4, order.getPaymentType().name());
-//				ps1.setDouble(5, order.getPaymentType().getFreight());
-//				ps1.setString(6, order.getShippingType().name());
-//				ps1.setDouble(7, order.getShippingType().getFreight());
-//
-//				ps1.setString(8, order.getRecipientName());
-//				ps1.setString(9, order.getRecipientEmail());
-//				ps1.setString(10, order.getRecipientPhone());
-//				ps1.setString(11, order.getShippingAddress());
-//
-//				return ps1;
-//			}
-//		}, keyHolder);
-//		return keyHolder.getKey().intValue();
-		//--------------------------------------------------------------------------------------------------------------------------
-//		for (OrderItem item : order.getOrderItemSet()) {
-//			Product p = item.getProduct();
-//			Color color = item.getColor();
-//
-//			jdbcTemplate.update(new PreparedStatementCreator() {
-//				@Override
-//				public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//					PreparedStatement ps2 = connection.prepareStatement(UPDATE_PRODUCT_STOCK);
-//					
-//					ps2.setInt(1, order.getId());
-//					ps2.setInt(2, p.getId());
-//					ps2.setString(3, item.getBrand() != null?item.getBrand() : "");
-//					ps2.setString(4, color!=null?color.getColorName():"");
-//					ps2.setString(5, item.getSize());
-//   					ps2.setInt(6, item.getQuantity());
-//   					ps2.setDouble(7, item.getPrice());
-//				}
-//			});
-//		}
+	@Override
+	@Transactional
+	public void insertOrder(Order order) {
+		if (order == null)
+			throw new IllegalArgumentException("建立訂單不得為null!");			
+			for (OrderItem item : order.getOrderItemSet()) {
+				int row = 0;
+				if (item.getColor() == null) {
+					jdbcTemplate.update(new PreparedStatementCreator() {
+						public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+							PreparedStatement pstmtUpdateProducts = conn.prepareStatement(UPDATE_PRODUCT_STOCK);
+							pstmtUpdateProducts.setInt(1, item.getQuantity());
+							pstmtUpdateProducts.setInt(2, item.getProduct().getId());
+							pstmtUpdateProducts.setInt(3, item.getQuantity());
 
-//	}
+							return pstmtUpdateProducts;
+						}
+					});
+				}
+				if (row == 0) {
+//				throw new StockShortageException("產品庫存不足",item);
+				}
+			}
+
+//--------------------------------------------------------------------------------------------------------------------------
+			KeyHolder keyHolder = new GeneratedKeyHolder();
+			jdbcTemplate.update(new PreparedStatementCreator() {				
+				public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+					PreparedStatement pstmt1 = conn.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
+					pstmt1.setString(1, order.getMember().getId());
+					pstmt1.setString(2, order.getCreatedDate().toString());
+					pstmt1.setString(3, order.getCreatedTime().toString());
+
+					pstmt1.setString(4, order.getPaymentType().name());
+					pstmt1.setDouble(5, order.getPaymentType().getFreight());
+					pstmt1.setString(6, order.getShippingType().name());
+					pstmt1.setDouble(7, order.getShippingType().getFreight());
+
+					pstmt1.setString(8, order.getRecipientName());
+					pstmt1.setString(9, order.getRecipientEmail());
+					pstmt1.setString(10, order.getRecipientPhone());
+					pstmt1.setString(11, order.getShippingAddress());
+
+					return pstmt1;
+				}
+			}, keyHolder);
+//		return keyHolder.getKey().intValue();
+// --------------------------------------------------------------------------------------------------------------------------
+			for (OrderItem item : order.getOrderItemSet()) {
+				Product p = item.getProduct();
+				Color color = item.getColor();
+
+				jdbcTemplate.update(new PreparedStatementCreator() {					
+					public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+						PreparedStatement pstmt2 = conn.prepareStatement(INSERT_ORDER_ITEM);
+
+						pstmt2.setInt(1, order.getId());
+						pstmt2.setInt(2, p.getId());
+						pstmt2.setString(3, item.getBrand() != null ? item.getBrand() : "");
+						pstmt2.setString(4, color != null ? color.getColorName() : "");
+						pstmt2.setString(5, item.getSize());
+						pstmt2.setInt(6, item.getQuantity());
+						pstmt2.setDouble(7, item.getPrice());
+
+						return pstmt2;
+					}
+				});
+			}		
+	}
 
 	private RowMapper<Order> OrderMapper = new RowMapper<Order>() {
 		@Override

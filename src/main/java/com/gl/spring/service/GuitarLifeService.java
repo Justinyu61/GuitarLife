@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gl.spring.DAO.CustomerDAO;
+import com.gl.spring.DAO.OrderDAO;
 import com.gl.spring.DAO.ProductDAO;
 import com.gl.spring.entity.Customer;
+import com.gl.spring.entity.Order;
 import com.gl.spring.entity.Product;
 
 @Service
@@ -25,6 +27,9 @@ public class GuitarLifeService {
 	
 	@Autowired
 	private ProductDAO productDao;
+	
+	@Autowired
+	private OrderDAO orderDao;
 	
 	//使用getCustom取得Customer裡的customer物件物件
 	public Customer getCustomer(String id) {
@@ -173,6 +178,34 @@ public class GuitarLifeService {
 		return productByBrand;
 	}
 	
+	public Order getOrderById(String orderId){
+		Optional<Order> orderById = orderDao.selectOrderById(orderId);
+		Order o1 = new Order();
+		
+		if(!orderById.isEmpty()) {
+//			o1.setId(1);
+//			
+//			o1.setCreatedDate("createdDate");
+//			o1.setCreatedTime("createdTime");
+//			o1.setStatus(0);
+//			
+//			o1.setPaymentType("123");
+//			o1.setPaymentFee(123);
+//			o1.setPaymentNote(orderId);
+//			o1.setShippingType("船運");
+//			o1.setShippingFee(123);
+//			o1.setShippingNote(orderId);
+//			
+//			o1.setRecipientName("Justin");
+//			o1.setRecipientEmail("mmm@yyy.com");
+//			o1.setRecipientPhone("0988888888");
+//			o1.setShippingAddress("ji3ji3ji3ji3ji3");
+//			
+//			orderById.toString();
+			o1 = orderById.get();
+		}			
+		return o1;
+	}
 
 			
 }
