@@ -191,17 +191,17 @@ public class GuitarLifeService {
 //			
 //			o1.setPaymentType("123");
 //			o1.setPaymentFee(123);
-//			o1.setPaymentNote(orderId);
+//			o1.setPaymentNote("123666");
 //			o1.setShippingType("船運");
 //			o1.setShippingFee(123);
-//			o1.setShippingNote(orderId);
+//			o1.setShippingNote("123666");
 //			
 //			o1.setRecipientName("Justin");
 //			o1.setRecipientEmail("mmm@yyy.com");
 //			o1.setRecipientPhone("0988888888");
 //			o1.setShippingAddress("ji3ji3ji3ji3ji3");
-//			
-//			orderById.toString();
+			
+			
 			o1 = orderById.get();
 		}			
 		return o1;

@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.gl.spring.entity.Customer;
 import com.gl.spring.entity.Order;
 import com.gl.spring.entity.Product;
+import com.gl.spring.entity.ShoppingCart;
 import com.gl.spring.service.GuitarLifeService;
 import com.gl.spring.service.GuitarLifeService.LoginStatus;
 import com.gl.spring.service.GuitarLifeService.RegisterStatus;
+import com.mysql.cj.Session;
 
 
 
@@ -230,11 +232,60 @@ public class GuitarLifeController {
 		return "products";
 	}
 	
-	@GetMapping("/shopping_cart")
+	
+	
+	@GetMapping("/getcart")
 	public String shoppingCart(HttpServletRequest request) {
-				
-		return "shopping_cart";
+		
+		class ProdInfo{
+			private String productId;
+			private String unitPrice;
+			private String quantity;
+			private String subtotal;
+			
+			public String getProductId() {
+				return productId;
+			}
+			public void setProductId(String productId) {
+				this.productId = productId;
+			}
+			public String getUnitPrice() {
+				return unitPrice;
+			}
+			public void setUnitPrice(String unitPrice) {
+				this.unitPrice = unitPrice;
+			}
+			public String getQuantity() {
+				return quantity;
+			}
+			public void setQuantity(String quantity) {
+				this.quantity = quantity;
+			}
+			public String getSubtotal() {
+				return subtotal;
+			}
+			public void setSubtotal(String subtotal) {
+				this.subtotal = subtotal;
+			}						
+		}				
+		
+		//取得從網頁上傳入的參數
+		ProdInfo prodInfo = new ProdInfo();
+		prodInfo.setProductId(request.getParameter("productId"));
+		prodInfo.setUnitPrice(request.getParameter("unitPrice"));
+		prodInfo.setQuantity(request.getParameter("quantity"));
+		prodInfo.setSubtotal(request.getParameter("subtotal"));
+		
+		HttpSession session = request.getSession(); 
+		session.setAttribute("Cart",prodInfo.getProductId()+prodInfo.getUnitPrice()+prodInfo.getQuantity()+prodInfo.getSubtotal());
+		//String prodInfo = request.getParameter("prodInfo");		
+		
+			logger.log(Level.INFO, "購物車畫面");
+			
+		return "shoppingcart";
 	}
+	
+	
 	
 	@GetMapping("/order")
 	public String order(HttpServletRequest request) {

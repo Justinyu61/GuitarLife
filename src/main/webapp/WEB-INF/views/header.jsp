@@ -328,6 +328,14 @@ header li.dropdown {
 				</div>
 			</div>--%>
 		</li>
+		<li >
+				<%--
+					if (member == null) {
+				--%> <a href='/GuitarLife/login'><i class='fas fa-user-alt'></i></a> 
+				<%-- } else {--%>
+              
+				<a href="/GuitarLife/logout"><i class="fas fa-user-alt-slash"></i></a> <%-- } --%>
+			</li>
 
 	</ul>
 
