@@ -20,10 +20,10 @@
 		<table class="cart-table">
 			<thead>
 				<tr>
-					<th class="pruductName" colspan="3">商品</th>
-					<th class="pruductPrice">價格</th>
-					<th class="pruductqty">數量</th>
-					<th class="pruductSubtotal">小計</th>
+					<th class="pruductName" colspan="3">商品:${cart.productId }</th>
+					<th class="pruductPrice">價格:${cart.unitprice }</th>
+					<th class="pruductqty">數量:${cart.quantity }</th>
+					<th class="pruductSubtotal">小計:${cart.subtotal }</th>
 				</tr>
 			</thead>
 			<tbody>

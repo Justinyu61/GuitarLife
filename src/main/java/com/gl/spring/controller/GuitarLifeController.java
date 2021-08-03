@@ -2,7 +2,9 @@ package com.gl.spring.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,14 +20,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.gl.spring.entity.CartItem;
 import com.gl.spring.entity.Customer;
 import com.gl.spring.entity.Order;
 import com.gl.spring.entity.Product;
 import com.gl.spring.entity.ShoppingCart;
+import com.gl.spring.exception.DLDataInvalidateException;
+import com.gl.spring.exception.DLException;
 import com.gl.spring.service.GuitarLifeService;
 import com.gl.spring.service.GuitarLifeService.LoginStatus;
 import com.gl.spring.service.GuitarLifeService.RegisterStatus;
 import com.mysql.cj.Session;
+
+
 
 
 
@@ -232,55 +239,51 @@ public class GuitarLifeController {
 		return "products";
 	}
 	
+//	@GetMapping("/shoppingcart")
+//	public String shoppingCart(HttpServletRequest request) {
+//		String shopcart = request.getParameter("shopcart");
+//		HttpSession session = request.getSession();
+//		session.setAttribute("shopcart", shopcart);
+//		return "shoppingcart";
+//	}
 	
-	
-	@GetMapping("/getcart")
-	public String shoppingCart(HttpServletRequest request) {
-		
-		class ProdInfo{
-			private String productId;
-			private String unitPrice;
-			private String quantity;
-			private String subtotal;
-			
-			public String getProductId() {
-				return productId;
-			}
-			public void setProductId(String productId) {
-				this.productId = productId;
-			}
-			public String getUnitPrice() {
-				return unitPrice;
-			}
-			public void setUnitPrice(String unitPrice) {
-				this.unitPrice = unitPrice;
-			}
-			public String getQuantity() {
-				return quantity;
-			}
-			public void setQuantity(String quantity) {
-				this.quantity = quantity;
-			}
-			public String getSubtotal() {
-				return subtotal;
-			}
-			public void setSubtotal(String subtotal) {
-				this.subtotal = subtotal;
-			}						
-		}				
-		
+	@GetMapping("/shoppingcart")
+	public String addCart(HttpServletRequest request) {
 		//取得從網頁上傳入的參數
-		ProdInfo prodInfo = new ProdInfo();
-		prodInfo.setProductId(request.getParameter("productId"));
-		prodInfo.setUnitPrice(request.getParameter("unitPrice"));
-		prodInfo.setQuantity(request.getParameter("quantity"));
-		prodInfo.setSubtotal(request.getParameter("subtotal"));
+		String productId = request.getParameter("productId");
+		String unitPrice = request.getParameter("unitprice");
+		String quantity = request.getParameter("quantity");
+		String subtotal = request.getParameter("subtotal");
 		
-		HttpSession session = request.getSession(); 
-		session.setAttribute("Cart",prodInfo.getProductId()+prodInfo.getUnitPrice()+prodInfo.getQuantity()+prodInfo.getSubtotal());
-		//String prodInfo = request.getParameter("prodInfo");		
+		List<String> errorMsgs = new ArrayList<>();
 		
-			logger.log(Level.INFO, "購物車畫面");
+		try {
+			Product p = service.getProductId(productId);
+			if(p!=null) {
+				if(quantity!=null && quantity.matches("\\d+")){
+					HttpSession session = request.getSession();
+					ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
+					if(cart == null){
+						cart= new ShoppingCart();
+						session.setAttribute("cart", cart);
+					}
+					cart.addToCart(p, unitPrice, subtotal , Integer.parseInt(quantity));
+				}else {
+					errorMsgs.add("加入購物車失敗,數量不正確:"+quantity);
+				}
+			}else {
+				 errorMsgs.add("加入購物車失敗,查無此產品"+productId);
+			}
+		//} catch (DLDataInvalidateException | DLException e) {
+		//	this.log("加入購物車失敗",e);
+			//errorMsgs.add(e.getMessage());				
+		}catch (Exception e) {
+		//	this.log("加入購物差失敗,發生非務期錯誤",e);
+			errorMsgs.add(e.getMessage());
+		}
+		
+		
+			logger.log(Level.INFO, "購物車畫面" +"商品:");
 			
 		return "shoppingcart";
 	}
