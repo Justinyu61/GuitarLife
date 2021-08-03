@@ -1,31 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" type='text/css' href='css/dl.css'>
 <link rel="stylesheet" href='css/dl-allcss.css' type='text/css'>
 <link rel="stylesheet" href='css/dl-main.css' type='text/css'>
-
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
 <style>
-article {
-	width: 100%;
-}
-
 .productinfo {
 	float: center;
 	margin: 0 28%;
 }
-
-.productWhere {
-	margin-top: auto;
-	margin-right: auto;
-	width: 80%;
-	float: right;
+.protext {
+	white-space: nowrap;
+	color: #111;
+	font-weight: bold;
 }
-
-.productcase {
-	width: auto;
-	heigh: auto;
-}
-
 .productDetail {
 	/* 	float: right; */
 	/* 	text-align: center; */
@@ -33,25 +22,68 @@ article {
 	height: 80%;
 	padding-top: 60px;
 }
-
-.productWhere li {
-	display: inline-block;
-	/* 	box-shadow: gray 5px 5px 20px; */
-	width: 25%;
-	height: 25%;
-	padding: 0px;
-	vertical-align: top;
-	margin: 15px;
-	/* 	float: right; */
+.productDetail h1 {
+	width: 100%;
+	margin-top: 60;
+	text-rendering: optimizeSpeed;
+	font-size: 1.4em;
+	line-height: 1.3;
+	color: #555555;
 }
-
-.productWhere li a img {
-	display: block;
-	margin: auto;
-	width: 90%;
-	float: center;
+.productData img {
+	float: left;
+	width: 100%;
+	max-width: 400px;
+	min-width: 20;
+	pxdisplay: inline-block;
+	vertical-align: middle;
+	border-style: none;
 }
 </style>
+<script>
+$(function() {
+		// This button will increment the value
+		$('.qtyplus')
+				.click(
+						function(e) {
+							// Stop acting like a button
+							e.preventDefault();
+							// Get the field name
+							fieldName = $(this).attr('field');
+							// Get its current value
+							var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+							// If is not undefined
+							if (!isNaN(currentVal)) {
+								// Increment
+								$('input[name=' + fieldName + ']').val(
+										currentVal + 1);
+							} else {
+								// Otherwise put a 0 there
+								$('input[name=' + fieldName + ']').val(0);
+							}
+						});
+		// This button will decrement the value till 0
+		$(".qtyminus")
+				.click(
+						function(e) {
+							// Stop acting like a button
+							e.preventDefault();
+							// Get the field name
+							fieldName = $(this).attr('field');
+							// Get its current value
+							var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+							// If it isn't undefined or its greater than 0
+							if (!isNaN(currentVal) && currentVal > 0) {
+								// Decrement one
+								$('input[name=' + fieldName + ']').val(
+										currentVal - 1);
+							} else {
+								// Otherwise put a 0 there
+								$('input[name=' + fieldName + ']').val(0);
+							}
+						});
+	});
+</script>
 
 <body>
 	<header>
@@ -70,7 +102,7 @@ article {
 			<div class="protext">品牌:${prodInfo.brand}</div>
 			<div class="protext">數量:${prodInfo.stock}</div>
 			<div class="protext">NT:${prodInfo.unitPrice}</div>
-		</div>
+		</div>		
 	</div>
 </body>
 

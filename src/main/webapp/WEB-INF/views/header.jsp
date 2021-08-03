@@ -9,7 +9,7 @@
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 <%
-	String search = request.getParameter("search");
+//	String search = request.getParameter("search");
 String type = request.getParameter("type");
 %>
 
@@ -251,7 +251,7 @@ header li.dropdown {
 
 
 	<h1 class="header-logo">
-		<a href='<%=request.getContextPath()%>/index.jsp'> <img
+		<a href='<%=request.getContextPath()%>/index'> <img
 			class="logo" src="<%=request.getContextPath()%>/images/logo.jpg"
 			alt="Guitar Life">
 		</a>
@@ -282,7 +282,7 @@ header li.dropdown {
 		<li><a href="#news">NEWS</a></li>
 		<li class="dropdown"><a href="javascript:void(0)" class="dropbtn">SHOP</a>
 			<div class="dropdown-content">
-				<a href="<%=request.getContextPath()%>/product_brand.jsp">吉他</a>
+				<a href="<%=request.getContextPath()%>/products">吉他</a>
 				<div Class="dropdown-first">
 					<!-- 			<a href="#">TAYLOR</a>  -->
 					<!-- 			<a href="#">MARTIN</a>  -->
