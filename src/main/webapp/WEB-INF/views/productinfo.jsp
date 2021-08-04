@@ -5,6 +5,50 @@
 <link rel="stylesheet" href='css/dl-allcss.css' type='text/css'>
 <link rel="stylesheet" href='css/dl-main.css' type='text/css'>
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
+<script>
+	$(function() {
+		// This button will increment the value
+		$('.qtyplus')
+				.click(
+						function(e) {
+							// Stop acting like a button
+							e.preventDefault();
+							// Get the field name
+							fieldName = $(this).attr('field');
+							// Get its current value
+							var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+							// If is not undefined
+							if (!isNaN(currentVal)) {
+								// Increment
+								$('input[name=' + fieldName + ']').val(
+										currentVal + 1);
+							} else {
+								// Otherwise put a 0 there
+								$('input[name=' + fieldName + ']').val(0);
+							}
+						});
+		// This button will decrement the value till 0
+		$(".qtyminus")
+				.click(
+						function(e) {
+							// Stop acting like a button
+							e.preventDefault();
+							// Get the field name
+							fieldName = $(this).attr('field');
+							// Get its current value
+							var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+							// If it isn't undefined or its greater than 0
+							if (!isNaN(currentVal) && currentVal > 0) {
+								// Decrement one
+								$('input[name=' + fieldName + ']').val(
+										currentVal - 1);
+							} else {
+								// Otherwise put a 0 there
+								$('input[name=' + fieldName + ']').val(0);
+							}
+						});
+	});
+</script>
 <style>
 .productinfo {
 	float: center;
@@ -54,7 +98,7 @@
 
 	<div class='productinfo'>
 		<div class='productData'>
-			<img style="margin-right: 60px;" id='photo' src="${prodInfo.photoUrl}">
+			<img style="margin-right: 60px;height: 400px;" id='photo' src="${prodInfo.photoUrl}">
 		</div>
 		<form class="cart" action="/GuitarLife/shoppingcart" method="GET">
 			<div class='productDetail'>
@@ -62,10 +106,18 @@
 				<div class="protext">品牌:${prodInfo.brand}</div>
 				<div class="protext">數量:${prodInfo.stock}</div>
 				<div class="protext">NT:${prodInfo.unitPrice}</div>
+				
+				<div class="qty-con">
+						<form id='myform' method='POST' action='#'>
+							<input type='button' value='-' class='qtyminus' field='quantity'>
+							<input type='text' name='quantity'   value='1' class='qty' step="1" min='stock>0?1:0' max='${prodInfo.stock }'> 
+							<input type='button' value='+' class='qtyplus' field='quantity'>						
+					    </form>
+				</div>
 			</div>
 			<input type='hidden' name='productId' value='${prodInfo.id}'>
 
-			<input type="submit" value="加入購物車" onClick=alert('${prodInfo.id}')>
+			<input type="submit" value="加入購物車" class="single_add_to_cart_button button alt" onClick=alert('${prodInfo.id}')>
 		</form>
 	</div>
 </body>

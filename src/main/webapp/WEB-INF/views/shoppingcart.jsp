@@ -19,12 +19,14 @@
 		 
 		<table class="cart-table">
 			<thead>
+			 <c:forEach items="${cart.cartItem}" var="cartItem">
 				<tr>
-					<th class="pruductName" colspan="3">商品:${cart.productId }</th>
-					<th class="pruductPrice">價格:${cart.unitprice }</th>
-					<th class="pruductqty">數量:${cart.quantity }</th>
-					<th class="pruductSubtotal">小計:${cart.subtotal }</th>
+					<th class="pruductName" colspan="3">商品:${cartItem.poductId}</th>
+					<th class="pruductPrice">價格:${cartItem.unitprice}</th>
+					<th class="pruductqty">數量:${cartItem.quantity}</th>
+					<th class="pruductSubtotal">小計:${cartItem.subtotal}</th>
 				</tr>
+				</c:forEach>
 			</thead>
 			<tbody>
 			<tr>
@@ -36,6 +38,8 @@
 			
 			<td></td>
 			</tbody>
-			</table>
+			</table>	
+			<h2>888${cart.CartItem}</h2>	
+			<h2>${cart.cartItemSet}</h2>
 	</body>
 </div>

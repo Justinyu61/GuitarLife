@@ -2,10 +2,7 @@ package com.gl.spring.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,17 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gl.spring.entity.CartItem;
+
 import com.gl.spring.entity.Customer;
 import com.gl.spring.entity.Order;
 import com.gl.spring.entity.Product;
 import com.gl.spring.entity.ShoppingCart;
-import com.gl.spring.exception.DLDataInvalidateException;
-import com.gl.spring.exception.DLException;
 import com.gl.spring.service.GuitarLifeService;
 import com.gl.spring.service.GuitarLifeService.LoginStatus;
 import com.gl.spring.service.GuitarLifeService.RegisterStatus;
-import com.mysql.cj.Session;
+
 
 
 
@@ -248,14 +243,14 @@ public class GuitarLifeController {
 //	}
 	
 	@GetMapping("/shoppingcart")
-	public String addCart(HttpServletRequest request) {
+	public String addCart(HttpServletRequest request,HttpServletResponse response) {
 		//取得從網頁上傳入的參數
 		String productId = request.getParameter("productId");
 		String unitPrice = request.getParameter("unitprice");
 		String quantity = request.getParameter("quantity");
 		String subtotal = request.getParameter("subtotal");
 		
-		List<String> errorMsgs = new ArrayList<>();
+		//List<String> errorMsgs = new ArrayList<>();
 		
 		try {
 			Product p = service.getProductId(productId);
@@ -269,17 +264,13 @@ public class GuitarLifeController {
 					}
 					cart.addToCart(p, unitPrice, subtotal , Integer.parseInt(quantity));
 				}else {
-					errorMsgs.add("加入購物車失敗,數量不正確:"+quantity);
+					logger.log(Level.INFO, "加入購物車失敗,數量不正確:"+quantity);				
 				}
 			}else {
-				 errorMsgs.add("加入購物車失敗,查無此產品"+productId);
-			}
-		//} catch (DLDataInvalidateException | DLException e) {
-		//	this.log("加入購物車失敗",e);
-			//errorMsgs.add(e.getMessage());				
+				logger.log(Level.INFO, "加入購物車失敗,查無此產品"+productId);				
+			}						
 		}catch (Exception e) {
-		//	this.log("加入購物差失敗,發生非務期錯誤",e);
-			errorMsgs.add(e.getMessage());
+			logger.log(Level.INFO, "加入購物差失敗,發生非務期錯誤",e);		
 		}
 		
 		

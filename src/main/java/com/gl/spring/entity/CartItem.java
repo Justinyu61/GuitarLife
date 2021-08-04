@@ -9,6 +9,7 @@ public class CartItem {
 	
 	
 	public Product getProduct() {
+		System.out.println("123");
 		return product;
 	}
 	public Color getColor() {
