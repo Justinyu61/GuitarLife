@@ -18,17 +18,20 @@
 		</header>
 		 
 		<table class="cart-table">
-			<thead>
-			 <c:forEach items="${cart.cartItem}" var="cartItem">
+			<thead>			
 				<tr>
-					<th class="pruductName" colspan="3">商品:${cartItem.poductId}</th>
-					<th class="pruductPrice">價格:${cartItem.unitprice}</th>
-					<th class="pruductqty">數量:${cartItem.quantity}</th>
-					<th class="pruductSubtotal">小計:${cartItem.subtotal}</th>
+					<th class="pruductName" colspan="3">商品</th>
+					<th class="pruductPrice">價格</th>
+					<th class="pruductqty">數量</th>
+					<th class="pruductSubtotal">小計</th>					
 				</tr>
-				</c:forEach>
+				
 			</thead>
 			<tbody>
+			 <c:forEach items="${cart.cartItemSet}" var="Item">
+			<th class="pruductName" colspan="3">${Item.product.name}</th>
+					<th class="pruductPrice">${Item.product.unitPrice}</th>
+					<th class="pruductqty">${quantity}</th>
 			<tr>
 			<td class="product-where" data-title="商品">
 			<img alt="" src="">
@@ -37,9 +40,9 @@
 			<td class="product-price" data-title="價格"></td>
 			
 			<td></td>
+			</c:forEach>
 			</tbody>
 			</table>	
-			<h2>888${cart.CartItem}</h2>	
-			<h2>${cart.cartItemSet}</h2>
+			
 	</body>
 </div>

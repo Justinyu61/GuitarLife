@@ -87,6 +87,33 @@
 	vertical-align: middle;
 	border-style: none;
 }
+.qty {
+	width: 18px;
+	height: 25px;
+	text-align: center;
+	border: 1px;
+	/*   border-top: 1px solid #aaa; */
+	/*   border-bottom: 1px solid #aaa; */
+}
+
+.qty-con .qtyplus, .qty-con .qtyminus {
+	padding-left: .1em;
+	padding-right: .1em;
+}
+
+input.qtyplus {
+	width: 18px;
+	height: 25px;
+	border: 1px solid #aaa;
+	background: white;
+}
+
+input.qtyminus {
+	width: 18px;
+	height: 25px;
+	border: 1px solid #aaa;
+	background: white;
+}
 </style>
 
 <body>
@@ -111,13 +138,11 @@
 						<form id='myform' method='POST' action='#'>
 							<input type='button' value='-' class='qtyminus' field='quantity'>
 							<input type='text' name='quantity'   value='1' class='qty' step="1" min='stock>0?1:0' max='${prodInfo.stock }'> 
-							<input type='button' value='+' class='qtyplus' field='quantity'>						
-					    </form>
+							<input type='button' value='+' class='qtyplus' field='quantity'>											  
 				</div>
 			</div>
-			<input type='hidden' name='productId' value='${prodInfo.id}'>
-
-			<input type="submit" value="加入購物車" class="single_add_to_cart_button button alt" onClick=alert('${prodInfo.id}')>
+			<input type='hidden' name='productId' value='${prodInfo.id}'>			
+			<input type="submit" value="加入購物車" class="single_add_to_cart_button button alt" )>		  
 		</form>
 	</div>
 </body>
